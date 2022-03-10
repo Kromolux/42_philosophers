@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:26:03 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/05 11:25:59 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:31:32 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	ft_error_malloc(char *function, char *variable, size_t size)
 {
 	printf("Error! Not enough memory for allocating space for [%s] [%li]"
 		"bytes by function: %s\n", variable, size, function);
-	return (0);
+	return (-1);
 }
 
 int	ft_error_num_philos(void)
 {
 	printf("Error! Number of Philosophers must between 1 and 200, 1 <= num_philos <= 200!\n");
-	return (0);
+	return (-1);
 }
 
 int	ft_error_time_die(void)
 {
 	printf("Error! Time to die must be bigger than time_to_eat + time_to_sleep!\n");
-	return (0);
+	return (-1);
 }
