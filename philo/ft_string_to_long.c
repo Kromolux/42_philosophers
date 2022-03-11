@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:30:46 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/05 10:31:27 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:21:14 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long	ft_string_to_long(const char *nptr)
 		output += nptr[i] - '0';
 		i++;
 	}
-	return ( output * sign);
+	return (output * sign);
 }
 
 static int	check_sign(const char *str, int *i_str)

@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:33:55 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/05 10:58:49 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:13:50 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int	ft_check_input(char **input)
 	{
 		if (!ft_valid_number(input[i_row]))
 		{
-			printf("Error! Invalid number [%s] in arguments input[%i] by"
-				" function ft_check_input\n", input[i_row], i_row);
+			printf(COLOR_RED
+				"Error! Invalid number [%s] in arguments input[%i] by"
+				" function ft_check_input\n"COLOR_DEFAULT,
+				input[i_row], i_row);
 			return (0);
 		}
 		i_row++;

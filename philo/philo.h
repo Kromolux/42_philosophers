@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/10 16:24:01 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:00:38 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,21 @@
 # define EATING 2
 # define SLEEPING 3
 # define DEAD 4
-
-typedef struct s_loop {
-	int				turn;
-	struct s_loop	*next;
-}				t_loop;
+# define COLOR_DEFAULT "\033[0m"
+# define COLOR_RED "\033[31m"
+# define COLOR_GREEN "\033[32m"
+# define COLOR_YELLOW "\033[33m"
+# define COLOR_BLUE "\033[34m"
+# define COLOR_MAGENTA "\033[35m"
+# define COLOR_WHITE "\033[37m"
+# define COLOR_LEN 10
 
 typedef struct s_times {
 	struct timeval	start;
 	struct timeval	actual;
-	struct timeval	interval;
-	long			delta;
-	int				turn;
+	int				all_ate;
 	pthread_mutex_t	terminal_lock;
-	struct s_loop	*loop;
+	pthread_mutex_t	meal_lock;
 }				t_times;
 
 typedef struct s_props {
@@ -50,17 +51,24 @@ typedef struct s_philos {
 	pthread_t		thread;
 	char			*name;
 	int				myturn;
+	struct timeval	start_time;
 	struct timeval	life_time;
 	struct timeval	action_time;
+	struct timeval	actual_time;
+	long			d_life_time;
+	long			d_action_time;
 	pthread_mutex_t	*left_fork_lock;
 	pthread_mutex_t	right_fork_lock;
+	pthread_mutex_t	thread_lock;
 	int				*left_fork;
 	int				right_fork;
+	int				has_left_fork;
+	int				has_right_fork;
 	int				status;
+	int				stop;
 	int				meals;
-	t_props			*props;
+	t_props			props;
 	t_times			*times;
-	
 }				t_philos;
 
 //ft_error.c
@@ -68,6 +76,7 @@ int			ft_error_arguments(void);
 int			ft_error_malloc(char *function, char *variable, size_t size);
 int			ft_error_num_philos(void);
 int			ft_error_time_die(void);
+int			ft_error_create_philos(void);
 
 //ft_string_to_long.c
 long		ft_string_to_long(const char *nptr);
@@ -95,23 +104,21 @@ size_t		ft_strlen(const char *s);
 
 //ft_init_philos.c
 t_philos	*ft_init_philos(t_props *props, t_times *times);
-void		ft_destroy_philos(t_philos *philos);
-void		ft_create_threads(t_philos *philos);
+void		ft_destroy_threads(t_philos *philos);
+int			ft_create_threads(t_philos *philos);
 
 //ft_philo_thread.c
 void		*ft_philo_thread(void *input);
+
+//ft_philo_thread1.c
+void		ft_check_life_time(t_philos *philo);
+int			ft_check_meals(t_philos *philos, t_props *props);
 
 //ft_status.c
 int			ft_philo_status(t_philos *philo, int fork);
 
 //ft_time.c
-long		ft_get_time_delta(struct timeval *start_time, struct timeval *actual_time);
-
-//ft_loop.c
-t_loop	*ft_create_new_element(int value);
-int		ft_add_element(t_loop **list, t_loop *new_element);
-void	ft_delete_list(t_loop **list);
-int		ft_create_loop_2(t_loop **list);
-int		ft_create_loop_6(t_loop **list);
+long		ft_get_time_delta(struct timeval start_time,
+				struct timeval actual_time);
 
 #endif

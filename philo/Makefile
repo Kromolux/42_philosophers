@@ -6,7 +6,7 @@
 #    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/05 09:02:13 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/10 13:40:26 by rkaufman         ###   ########.fr        #
+#    Updated: 2022/03/11 17:56:39 by rkaufman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,11 @@ SRC			:=	ft_philosophers.c \
 				ft_init_philos.c \
 				ft_status.c \
 				ft_philo_thread.c \
-				ft_loop.c
+				ft_philo_thread1.c
 
 OBJ			:=	$(SRC:%.c=%.o)
 
-CFLAGS		:=	-g -Wall -Wextra -Werror #-fsanitize=thread
+CFLAGS		:=	-Wall -Wextra -Werror #-g -pthread -fsanitize=thread
 
 all: $(NAME)
 
