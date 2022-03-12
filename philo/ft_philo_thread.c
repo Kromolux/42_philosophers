@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:08:22 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 18:07:23 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/12 08:42:54 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	*ft_philo_thread(void *input)
 	while (1)
 	{
 		gettimeofday(&philo->actual_time, NULL);
-		philo->d_action_time = ft_get_time_delta(philo->action_time,
-				philo->actual_time);
+		philo->d_action_time = ft_get_time_delta(
+				philo->action_time, philo->actual_time);
 		pthread_mutex_lock(&philo->thread_lock);
 		if (philo->stop == 1)
 			break ;
@@ -63,7 +63,7 @@ static void	ft_eat(t_philos *philo)
 		philo->status = EATING;
 		pthread_mutex_unlock(&philo->thread_lock);
 		ft_philo_status(philo, 0);
-		usleep(philo->props.time_eat - 20000);
+		usleep(philo->props.time_eat - 30000);
 	}
 }
 
@@ -109,5 +109,5 @@ static void	ft_sleep(t_philos *philo)
 	gettimeofday(&philo->action_time, NULL);
 	philo->status = SLEEPING;
 	ft_philo_status(philo, 0);
-	usleep(philo->props.time_sleep - 20000);
+	usleep(philo->props.time_sleep - 30000);
 }

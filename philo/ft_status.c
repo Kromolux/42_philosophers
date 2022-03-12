@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:45:19 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 16:49:27 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/12 08:11:41 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_philo_status(t_philos *philo, int fork)
 	ft_prepare_output(philo, fork, output);
 	pthread_mutex_lock(&philo->times->terminal_lock);
 	ft_write_string(output);
+	if (philo->status == DEAD)
+		close(STDOUT_FILENO);
 	pthread_mutex_unlock(&philo->times->terminal_lock);
 	return (0);
 }

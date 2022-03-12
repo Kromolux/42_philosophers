@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:07:50 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 17:03:19 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/12 08:14:29 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,15 @@ static int	ft_loop(t_philos *philos, t_props *props)
 
 static void	ft_destroy_main(t_times *times)
 {
+	freopen("/dev/tty", "w", stdout);
 	if (times->all_ate > 0)
 		printf(COLOR_GREEN
 			"All Philosophers ate at least %i times. Simulation stopped.\n"
 			COLOR_DEFAULT, times->all_ate);
+	else
+		printf(COLOR_YELLOW
+			"One Philosopher died! Simulation stopped.\n"
+			COLOR_DEFAULT);
 	pthread_mutex_destroy(&times->terminal_lock);
 	pthread_mutex_destroy(&times->meal_lock);
 }

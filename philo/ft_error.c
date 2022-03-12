@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:26:03 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 15:38:54 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/12 08:51:32 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	ft_error_num_philos(void)
 int	ft_error_time_die(void)
 {
 	printf(COLOR_RED
-		"Error! Time to die must be bigger than time_to_eat +"
-		" time_to_sleep!\n" COLOR_DEFAULT);
+		"Error! Time to die must be > than time_to_eat +"
+		" time_to_sleep and <= 10000 ms!\n"COLOR_DEFAULT);
 	return (0);
 }
 
 int	ft_error_create_philos(void)
 {
 	printf(COLOR_RED
-		"Error!, Was not able to create threads\n" COLOR_DEFAULT);
+		"Error! Was not able to create threads\n" COLOR_DEFAULT);
 	return (0);
 }
