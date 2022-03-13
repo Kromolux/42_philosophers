@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_write_string.c                                  :+:      :+:    :+:   */
+/*   ft_strlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 11:34:00 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/13 09:20:10 by rkaufman         ###   ########.fr       */
+/*   Created: 2022/03/05 11:40:23 by rkaufman          #+#    #+#             */
+/*   Updated: 2022/03/12 09:10:48 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-void	ft_write_string(char *s)
+size_t	ft_strlen(const char *s)
 {
-	write(1, s, ft_strlen(s));
-	free((void *) s);
+	size_t	i;
+
+	i = 0;
+	while (*s)
+	{
+		s++;
+		i++;
+	}
+	return (i);
 }

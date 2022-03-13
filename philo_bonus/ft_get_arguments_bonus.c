@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_arguments.c                                 :+:      :+:    :+:   */
+/*   ft_get_arguments_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:41:46 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/12 15:02:07 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/12 15:02:00 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	ft_error_time_eat(long time);
 static int	ft_error_time_sleep(long time);
 static int	ft_error_num_meals(int meals);
 
-int	ft_get_arguments(t_props *props, char **input)
+int	ft_get_arguments(t_philo *philo, char **input)
 {
-	props->num_philos = (int) ft_string_to_long(input[1]);
-	props->time_die = ft_string_to_long(input[2]) * 1000;
-	props->time_eat = ft_string_to_long(input[3]) * 1000;
-	props->time_sleep = (int) ft_string_to_long(input[4]) * 1000;
+	philo->num_philos = (int) ft_string_to_long(input[1]);
+	philo->time_die = ft_string_to_long(input[2]) * 1000;
+	philo->time_eat = ft_string_to_long(input[3]) * 1000;
+	philo->time_sleep = (int) ft_string_to_long(input[4]) * 1000;
 	if (input[5])
-		props->num_meals = ft_string_to_long(input[5]);
+		philo->num_meals = ft_string_to_long(input[5]);
 	else
-		props->num_meals = 0;
-	if (props->num_meals > 1000)
-		return (ft_error_num_meals(props->num_meals));
-	if (props->num_philos <= 0 || props->num_philos > 200)
+		philo->num_meals = 0;
+	if (philo->num_meals > 1000)
+		return (ft_error_num_meals(philo->num_meals));
+	if (philo->num_philos <= 0 || philo->num_philos > 200)
 		return (ft_error_num_philos());
-	if (props->time_die <= (props->time_eat + props->time_sleep)
-		|| props->time_die > 10000000)
+	if (philo->time_die <= (philo->time_eat + philo->time_sleep)
+		|| philo->time_die > 10000000)
 		return (ft_error_time_die());
-	if (props->time_eat < 60000 || props->time_eat > 1000000)
-		return (ft_error_time_eat(props->time_eat));
-	if (props->time_sleep < 60000 || props->time_sleep > 1000000)
-		return (ft_error_time_sleep(props->time_sleep));
+	if (philo->time_eat < 60000 || philo->time_eat > 1000000)
+		return (ft_error_time_eat(philo->time_eat));
+	if (philo->time_sleep < 60000 || philo->time_sleep > 1000000)
+		return (ft_error_time_sleep(philo->time_sleep));
 	return (1);
 }
 

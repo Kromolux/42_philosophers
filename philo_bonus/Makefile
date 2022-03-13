@@ -6,7 +6,7 @@
 #    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/05 09:02:13 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/13 09:27:39 by rkaufman         ###   ########.fr        #
+#    Updated: 2022/03/13 10:55:27 by rkaufman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,26 +22,26 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:=	philo
+NAME		:=	philo_bonus
 
 CC			:=	gcc
-HEADERFILE	:=	philo.h
+HEADERFILE	:=	philo_bonus.h
 
-SRC			:=	ft_philosophers.c \
-				ft_check_input.c \
-				ft_error.c \
-				ft_string_to_long.c \
-				ft_get_arguments.c \
-				ft_realloc.c \
-				ft_copy.c \
-				ft_write_string.c \
-				ft_long_to_string.c \
-				ft_strlen.c \
-				ft_time.c \
-				ft_init_philos.c \
-				ft_status.c \
-				ft_philo_thread.c \
-				ft_philo_thread1.c
+SRC			:=	ft_philosophers_bonus.c \
+				ft_check_input_bonus.c \
+				ft_error_bonus.c \
+				ft_string_to_long_bonus.c \
+				ft_get_arguments_bonus.c \
+				ft_realloc_bonus.c \
+				ft_copy_bonus.c \
+				ft_write_string_bonus.c \
+				ft_long_to_string_bonus.c \
+				ft_strlen_bonus.c \
+				ft_time_bonus.c \
+				ft_init_process_bonus.c \
+				ft_status_bonus.c \
+				ft_philo_process_bonus.c \
+				ft_check_meals_bonus.c
 
 OBJ			:=	$(SRC:%.c=%.o)
 
@@ -64,7 +64,7 @@ fclean: clean
 
 re: fclean all
 
-norm:
+norminette:
 	norminette -R CheckForbiddenSourceHeader $(SRC) $(HEADERFILE)
 
 git:

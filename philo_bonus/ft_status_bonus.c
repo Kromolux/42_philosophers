@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_status.c                                        :+:      :+:    :+:   */
+/*   ft_status_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:45:19 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/13 09:27:58 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/13 10:52:54 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-static void	ft_prepare_output(t_philos *philo, int fork, char *output);
+static void	ft_prepare_output(t_philo *philo, int fork, char *output);
 static void	ft_choose_color(int status, int fork, char *output);
-static void	ft_terminal_output(t_philos *philo, char *output);
 
-int	ft_philo_status(t_philos *philo, int fork)
+int	ft_philo_status(t_philo *philo, int fork)
 {
 	char	*output;
 	char	*time;
@@ -36,11 +35,15 @@ int	ft_philo_status(t_philos *philo, int fork)
 	output[len] = ' ';
 	ft_copy(&output[len + 1], philo->name, 0);
 	ft_prepare_output(philo, fork, output);
-	ft_terminal_output(philo, output);
+	sem_wait(philo->terminal_sema);
+	ft_write_string(output);
+	sem_post(philo->terminal_sema);
+	if (philo->status == DEAD)
+		sem_post(philo->dead_sema);
 	return (0);
 }
 
-static void	ft_prepare_output(t_philos *philo, int fork, char *output)
+static void	ft_prepare_output(t_philo *philo, int fork, char *output)
 {
 	size_t	len;
 
@@ -72,16 +75,4 @@ static void	ft_choose_color(int status, int fork, char *output)
 		ft_copy(output, COLOR_RED, 0);
 	else
 		ft_copy(output, COLOR_DEFAULT, 0);
-}
-
-static void	ft_terminal_output(t_philos *philo, char *output)
-{
-	pthread_mutex_lock(&philo->times->terminal_lock);
-	if (philo->times->terminal != -1)
-	{
-		ft_write_string(output);
-		if (philo->status == DEAD)
-			philo->times->terminal = -1;
-	}
-	pthread_mutex_unlock(&philo->times->terminal_lock);
 }

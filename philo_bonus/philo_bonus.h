@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/13 09:25:32 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/13 11:16:55 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 # include <stdio.h>
+# include <semaphore.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <string.h>
+# include <signal.h>
 # define THINKING 1
 # define EATING 2
 # define SLEEPING 3
@@ -31,93 +33,83 @@
 # define COLOR_WHITE "\033[37m"
 # define COLOR_LEN 10
 
-typedef struct s_times {
-	struct timeval	start;
-	int				all_ate;
-	int				terminal;
-	pthread_mutex_t	terminal_lock;
-	pthread_mutex_t	meal_lock;
-}				t_times;
-
-typedef struct s_props {
-	int				num_philos;
-	long			time_die;
-	long			time_eat;
-	long			time_sleep;
-	int				num_meals;
-}				t_props;
-
-typedef struct s_philos {
-	pthread_t		thread;
+typedef struct s_philo {
 	char			*name;
+	pid_t			*pid;
 	int				myturn;
 	struct timeval	start_time;
 	struct timeval	life_time;
 	struct timeval	action_time;
 	struct timeval	actual_time;
+	sem_t			*forks_sema;
+	sem_t			*terminal_sema;
+	sem_t			*meals_sema;
+	sem_t			*dead_sema;
+	sem_t			*thread_sema;
 	long			d_action_time;
-	pthread_mutex_t	*left_fork_lock;
-	pthread_mutex_t	right_fork_lock;
-	pthread_mutex_t	thread_lock;
-	int				*left_fork;
-	int				right_fork;
-	int				has_left_fork;
-	int				has_right_fork;
+	int				has_fork;
 	int				status;
-	int				stop;
 	int				meals;
-	t_props			props;
-	t_times			*times;
-}				t_philos;
+	int				all_ate;
+	int				dead;
+	int				num_philos;
+	long			time_die;
+	long			time_eat;
+	long			time_sleep;
+	int				num_meals;
+	pthread_t		meal_check_thread;
+	pthread_t		dead_check_thread;
+	pthread_t		life_signal_thread;
+}				t_philo;
 
-//ft_error.c
+//ft_error_bonus.c
 int			ft_error_arguments(void);
 int			ft_error_malloc(char *function, char *variable, size_t size);
 int			ft_error_num_philos(void);
 int			ft_error_time_die(void);
 int			ft_error_create_philos(void);
 
-//ft_string_to_long.c
+//ft_string_to_long_bonus.c
 long		ft_string_to_long(const char *nptr);
 
-//ft_check_input.c
+//ft_check_input_bonus.c
 int			ft_check_input(char **input);
 
-//ft_get_arguments.c
-int			ft_get_arguments(t_props *props, char **input);
+//ft_get_arguments_bonus.c
+int			ft_get_arguments(t_philo *philo, char **input);
 
-//ft_realloc.c
+//ft_realloc_bonus.c
 char		*ft_realloc(char *s1, char *s2, int free_s1, int free_s2);
 
-//ft_copy.c
+//ft_copy_bonus.c
 size_t		ft_copy(char *dst, char *src, size_t size);
 
-//ft_write_string.c
-void		ft_write_string(char *s);
+//ft_write_string_bonus.c
+int			ft_write_string(char *s);
 
-//ft_long_to_string.c
+//ft_long_to_string_bonus.c
 char		*ft_long_to_string(long n);
 
-//ft_strlen.c
+//ft_strlen_bonus.c
 size_t		ft_strlen(const char *s);
 
-//ft_init_philos.c
-t_philos	*ft_init_philos(t_props *props, t_times *times);
-void		ft_destroy_threads(t_philos *philos);
-int			ft_create_threads(t_philos *philos);
+//ft_init_process_bonus.c
+int			ft_init_processes(t_philo *philo);
+void		ft_destroy_processes(t_philo *philo);
 
-//ft_philo_thread.c
-void		*ft_philo_thread(void *input);
+//ft_philo_process_bonus.c
+void		ft_philosopher(t_philo *philo, int i);
 
-//ft_philo_thread1.c
-void		ft_check_life_time(t_philos *philo);
-int			ft_check_meals(t_philos *philos, t_props *props);
+//ft_status_bonus.c
+int			ft_philo_status(t_philo *philo, int fork);
 
-//ft_status.c
-int			ft_philo_status(t_philos *philo, int fork);
-
-//ft_time.c
+//ft_time_bonus.c
 long		ft_get_time_delta(struct timeval start_time,
 				struct timeval actual_time);
+
+//ft_check_meals_bonus.c
+void		*ft_check_meals(void *input);
+void		*ft_check_dead(void *input);
+void		*ft_send_life_signal(void *input);
 
 #endif
