@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/13 09:25:32 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/15 11:09:38 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,22 @@ int			ft_error_num_philos(void);
 int			ft_error_time_die(void);
 int			ft_error_create_philos(void);
 
-//ft_string_to_long.c
-long		ft_string_to_long(const char *nptr);
-
 //ft_check_input.c
 int			ft_check_input(char **input);
 
 //ft_get_arguments.c
 int			ft_get_arguments(t_props *props, char **input);
 
-//ft_realloc.c
+//ft_utils.c
+long		ft_get_time_delta(struct timeval start_time,
+				struct timeval actual_time);
+size_t		ft_strlen(const char *s);
+size_t		ft_copy(char *dst, char *src, size_t size);
 char		*ft_realloc(char *s1, char *s2, int free_s1, int free_s2);
 
-//ft_copy.c
-size_t		ft_copy(char *dst, char *src, size_t size);
-
-//ft_write_string.c
-void		ft_write_string(char *s);
-
-//ft_long_to_string.c
+//ft_string_utils.c
 char		*ft_long_to_string(long n);
-
-//ft_strlen.c
-size_t		ft_strlen(const char *s);
+long		ft_string_to_long(const char *nptr);
 
 //ft_init_philos.c
 t_philos	*ft_init_philos(t_props *props, t_times *times);
@@ -115,9 +108,5 @@ int			ft_check_meals(t_philos *philos, t_props *props);
 
 //ft_status.c
 int			ft_philo_status(t_philos *philo, int fork);
-
-//ft_time.c
-long		ft_get_time_delta(struct timeval start_time,
-				struct timeval actual_time);
 
 #endif

@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_to_long.c                                :+:      :+:    :+:   */
+/*   ft_string_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 10:30:46 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 13:21:14 by rkaufman         ###   ########.fr       */
+/*   Created: 2022/03/15 11:07:37 by rkaufman          #+#    #+#             */
+/*   Updated: 2022/03/15 11:08:53 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_sign(const char *str, int *i_str);
+static int		check_sign(const char *str, int *i_str);
+static size_t	ft_get_str_len(long n, int sign);
 
 long	ft_string_to_long(const char *nptr)
 {
@@ -47,4 +48,47 @@ static int	check_sign(const char *str, int *i_str)
 		i++;
 	*i_str = i;
 	return (sign);
+}
+
+char	*ft_long_to_string(long n)
+{
+	char	*output;
+	long	tmp;
+	size_t	i;
+	int		sign;
+
+	sign = 1;
+	if (n < 0)
+		sign = -1;
+	tmp = (long) n * sign;
+	i = ft_get_str_len(tmp, sign);
+	output = malloc(i + 1);
+	if (!output)
+		return (NULL);
+	output[i--] = '\0';
+	while (tmp > 9)
+	{
+		output[i] = (char)(tmp % 10) + '0';
+		tmp = tmp / 10;
+		i--;
+	}
+	output[i] = (char)(tmp % 10) + '0';
+	if (sign == -1)
+		output[0] = '-';
+	return (output);
+}
+
+static size_t	ft_get_str_len(long n, int sign)
+{
+	size_t	i;
+
+	i = 1;
+	while (n > 9)
+	{
+		n /= 10;
+		i++;
+	}
+	if (sign == -1)
+		i++;
+	return (i);
 }

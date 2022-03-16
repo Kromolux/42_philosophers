@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/12 08:51:55 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/15 10:33:15 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ void	ft_destroy_threads(t_philos *philos)
 		pthread_mutex_lock(&philos[i].thread_lock);
 		philos[i].stop = 1;
 		pthread_mutex_unlock(&philos[i].thread_lock);
+		pthread_join(philos[i].thread, NULL);
 		i++;
 	}
 	i = 0;
 	while (i < philos->props.num_philos)
 	{
-		pthread_join(philos[i].thread, NULL);
 		pthread_mutex_destroy(&philos[i].right_fork_lock);
 		pthread_mutex_destroy(&philos[i].thread_lock);
 		free(philos[i].name);
