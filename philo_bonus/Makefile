@@ -5,20 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/05 09:02:13 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/16 20:08:21 by rkaufman         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/17 11:30:26 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/03 13:26:48 by rkaufman         ###   ########.fr        #
+#    Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#              #
+#    Updated: 2022/03/17 18:27:27 by rkaufman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +22,11 @@ SRC			:=	ft_philosophers_bonus.c \
 				ft_init_process_bonus.c \
 				ft_status_bonus.c \
 				ft_philo_process_bonus.c \
+				ft_philo_process_utils_bonus.c \
 				ft_check_meals_bonus.c \
 				ft_utils_bonus.c \
-				ft_string_utils_bonus.c
+				ft_string_utils_bonus.c \
+				ft_semaphore.c
 
 OBJ			:=	$(SRC:%.c=%.o)
 

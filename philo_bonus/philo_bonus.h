@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/16 19:24:24 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:06:40 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_philo {
 	long			time_sleep;
 	int				num_meals;
 	pthread_t		meal_check_thread;
-	pthread_t		dead_check_thread;
 	pthread_t		life_check_thread;
 }				t_philo;
 
@@ -74,7 +73,11 @@ int			ft_error_num_philos(void);
 int			ft_error_time_die(void);
 int			ft_error_create_philos(void);
 
-sem_t	*ft_sema_init(char *name, int value);
+//ft_semaphore.c
+sem_t		*ft_sema_init(char *name, int value);
+void		ft_init_main_sema(t_philo *philo);
+void		ft_close_all_sema(t_philo *philo);
+
 //ft_check_input_bonus.c
 int			ft_check_input(char **input);
 
@@ -98,6 +101,10 @@ void		ft_destroy_processes(t_philo *philo);
 
 //ft_philo_process_bonus.c
 void		ft_philosopher(t_philo *philo, int i);
+
+//ft_philo_process_utils_bonus.c
+void		ft_prepare_philo(t_philo *philo, int i);
+int			ft_dead_with_fork(t_philo *philo);
 
 //ft_status_bonus.c
 int			ft_philo_status(t_philo *philo, int status);

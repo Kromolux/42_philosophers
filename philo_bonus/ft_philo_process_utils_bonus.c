@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_meals_bonus.c                             :+:      :+:    :+:   */
+/*   ft_philo_process_utils_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 16:36:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/17 17:47:01 by rkaufman         ###   ########.fr       */
+/*   Created: 2022/03/17 17:59:42 by rkaufman          #+#    #+#             */
+/*   Updated: 2022/03/17 18:07:49 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	*ft_check_meals(void *input)
+void	ft_prepare_philo(t_philo *philo, int i)
 {
-	t_philo	*philo;
-	int		i;
+	char	*tmp;
 
-	i = 0;
-	philo = (t_philo *) input;
+	free(philo->pid);
+	tmp = ft_long_to_string((long) i + 1);
+	ft_copy(philo->name, tmp, 0);
+	free(tmp);
+	if ((philo->num_philos % 2) == 0)
+		philo->myturn = i % 2;
+	else
+		philo->myturn = i % 3;
+	ft_philo_status(philo, THINKING);
+	philo->thread_sema = ft_sema_init(philo->name, 1);
+}
+
+int	ft_dead_with_fork(t_philo *philo)
+{
 	sem_wait(philo->thread_sema);
-	while (i < philo->num_philos && philo->dead == 0)
+	if (philo->dead == 1)
 	{
+		sem_post(philo->forks_sema);
+		sem_post(philo->forks_sema);
 		sem_post(philo->thread_sema);
-		sem_wait(philo->meals_sema);
-		sem_wait(philo->thread_sema);
-		i++;
+		return (1);
 	}
-	if (philo->dead == 0)
-		philo->all_ate = 1;
-	sem_post(philo->dead_sema);
-	sem_post(philo->thread_sema);
-	return (NULL);
+	return (0);
 }

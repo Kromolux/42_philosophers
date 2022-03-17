@@ -6,11 +6,13 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/16 20:06:39 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:55:46 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+static void	ft_collect_semas(t_philo *philo);
 
 int	ft_init_processes(t_philo *philo)
 {
@@ -36,17 +38,7 @@ void	ft_destroy_processes(t_philo *philo)
 {
 	int	i;
 
-	i = 0;
-	while (i < philo->num_philos)
-	{
-		sem_wait(philo->start_sema);
-		i++;
-	}
-	while (i < philo->num_philos)
-	{
-		sem_wait(philo->forks_sema);
-		i++;
-	}
+	ft_collect_semas(philo);
 	usleep(philo->time_die);
 	i = 0;
 	while (i < philo->num_philos)
@@ -61,6 +53,18 @@ void	ft_destroy_processes(t_philo *philo)
 		waitpid(philo->pid[i], NULL, 0);
 		i++;
 	}
-
 	free(philo->pid);
+}
+
+static void	ft_collect_semas(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->num_philos)
+	{
+		sem_wait(philo->start_sema);
+		i++;
+	}
+	i = 0;
 }
