@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 13:06:35 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/11 17:49:44 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/18 11:56:23 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	ft_check_life_time(t_philos *philo)
 		>= philo->props.time_die)
 	{
 		philo->stop = 1;
-		philo->status = DEAD;
-		ft_philo_status(philo, 0);
+		ft_philo_status(philo, DEAD);
 	}
 }
 

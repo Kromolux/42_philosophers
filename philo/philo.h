@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/15 11:09:38 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:16:49 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <string.h>
+# define FORK 0
 # define THINKING 1
 # define EATING 2
 # define SLEEPING 3
@@ -59,10 +60,10 @@ typedef struct s_philos {
 	pthread_mutex_t	*left_fork_lock;
 	pthread_mutex_t	right_fork_lock;
 	pthread_mutex_t	thread_lock;
-	int				*left_fork;
 	int				right_fork;
-	int				has_left_fork;
 	int				has_right_fork;
+	int				*left_fork;
+	int				has_left_fork;
 	int				status;
 	int				stop;
 	int				meals;

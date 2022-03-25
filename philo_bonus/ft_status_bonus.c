@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:45:19 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/16 19:24:41 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:31:47 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ static void	ft_choose_color(int status, char *output);
 
 int	ft_philo_status(t_philo *philo, int status)
 {
-	char	*output;
+	char	output[42];
 	char	*time;
 	size_t	len;
 
 	time = ft_long_to_string(ft_get_time_delta(philo->start_time,
 				philo->actual_time) / 1000);
 	len = ft_strlen(time);
-	output = (char *) malloc(len + ft_strlen(philo->name) + 23 + COLOR_LEN);
-	if (!output)
-		return (ft_error_malloc("ft_philo_status", "output",
-				(len + ft_strlen(philo->name) + 23 + COLOR_LEN)));
 	ft_choose_color(status, output);
 	ft_copy(&output[5], time, 0);
 	free(time);
@@ -38,7 +34,6 @@ int	ft_philo_status(t_philo *philo, int status)
 	sem_wait(philo->terminal_sema);
 	write(1, output, ft_strlen(output));
 	sem_post(philo->terminal_sema);
-	free(output);
 	return (0);
 }
 

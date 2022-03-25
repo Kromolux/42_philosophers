@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/15 10:33:15 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:25:54 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ t_philos	*ft_init_philos(t_props *props, t_times *times)
 	if (props->num_philos > 1)
 	{
 		i = 1;
-		philos[0].left_fork = &philos[props->num_philos - 1].right_fork;
 		philos[0].left_fork_lock
 			= &philos[props->num_philos - 1].right_fork_lock;
+		philos[0].left_fork
+			= &philos[props->num_philos - 1].right_fork;
 		while (i < props->num_philos)
 		{
-			philos[i].left_fork = &philos[i - 1].right_fork;
 			philos[i].left_fork_lock = &philos[i - 1].right_fork_lock;
+			philos[i].left_fork = &philos[i - 1].right_fork;
 			i++;
 		}
 	}
@@ -58,8 +59,6 @@ static void	ft_assign_values(t_props *props, t_times *times, t_philos *philos)
 		philos[i].right_fork = 1;
 		philos[i].status = THINKING;
 		philos[i].props = *props;
-		philos[i].start_time = times->start;
-		philos[i].life_time = times->start;
 		philos[i].times = times;
 		i++;
 	}
