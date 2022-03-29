@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:45:19 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/18 12:31:47 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:16:05 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_philo_status(t_philo *philo, int status)
 	size_t	len;
 
 	time = ft_long_to_string(ft_get_time_delta(philo->start_time,
-				philo->actual_time) / 1000);
+				philo->actual_time));
 	len = ft_strlen(time);
 	ft_choose_color(status, output);
 	ft_copy(&output[5], time, 0);
@@ -52,6 +52,8 @@ static void	ft_prepare_output(int status, char *output)
 		ft_copy(&output[len], " is thinking\n", 0);
 	else if (status == DEAD)
 		ft_copy(&output[len], " died\n", 0);
+	else if (status == DEBUG)
+		ft_copy(&output[len], " debug timestamp\n", 0);
 	ft_copy(&output[ft_strlen(output)], COLOR_DEFAULT, 0);
 }
 
@@ -67,6 +69,8 @@ static void	ft_choose_color(int status, char *output)
 		ft_copy(output, COLOR_MAGENTA, 0);
 	else if (status == DEAD)
 		ft_copy(output, COLOR_RED, 0);
+	else if (status == DEBUG)
+		ft_copy(output, COLOR_BLUE, 0);
 	else
 		ft_copy(output, COLOR_DEFAULT, 0);
 }

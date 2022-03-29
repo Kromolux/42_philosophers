@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:26:03 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/12 09:10:17 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:20:07 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	ft_error_time_die(void)
 int	ft_error_create_philos(void)
 {
 	printf(COLOR_RED
-		"Error! Was not able to create threads\n" COLOR_DEFAULT);
+		"Error! Was not able to create proccesses\n" COLOR_DEFAULT);
 	return (0);
 }

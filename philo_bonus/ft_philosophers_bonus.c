@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:07:50 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/17 18:25:53 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:40:27 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	main(int argc, char **argv)
 		return (0);
 	ft_init_main_sema(&philo);
 	ft_init_processes(&philo);
-	philo.thread_sema = ft_sema_init("main", 1);
-	usleep(500000);
+	usleep(50000);
 	ft_prepare_simulation(&philo);
 	sem_wait(philo.dead_sema);
 	sem_wait(philo.thread_sema);
@@ -55,7 +54,6 @@ static void	ft_prepare_simulation(t_philo *philo)
 		i++;
 	}
 	sem_post(philo->thread_sema);
-	usleep(1000);
 }
 
 static void	ft_destroy_main(t_philo *philo)

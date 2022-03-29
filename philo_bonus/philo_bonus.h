@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/17 18:06:40 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:28:14 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@
 # define EATING 2
 # define SLEEPING 3
 # define DEAD 4
+# define DEBUG 5
 # define COLOR_DEFAULT "\033[0m"
 # define COLOR_RED "\033[31m"
 # define COLOR_GREEN "\033[32m"
 # define COLOR_YELLOW "\033[33m"
 # define COLOR_BLUE "\033[34m"
 # define COLOR_MAGENTA "\033[35m"
+# define COLOR_CYAN "\033[36m"
 # define COLOR_WHITE "\033[37m"
 # define COLOR_LEN 10
 
@@ -51,6 +53,7 @@ typedef struct s_philo {
 	sem_t			*dead_sema;
 	sem_t			*start_sema;
 	sem_t			*thread_sema;
+	sem_t			*life_sema;
 	long			d_action_time;
 	int				has_fork;
 	int				status;
@@ -73,7 +76,7 @@ int			ft_error_num_philos(void);
 int			ft_error_time_die(void);
 int			ft_error_create_philos(void);
 
-//ft_semaphore.c
+//ft_semaphore_bonus.c
 sem_t		*ft_sema_init(char *name, int value);
 void		ft_init_main_sema(t_philo *philo);
 void		ft_close_all_sema(t_philo *philo);
@@ -111,7 +114,8 @@ int			ft_philo_status(t_philo *philo, int status);
 
 //ft_check_meals_bonus.c
 void		*ft_check_meals(void *input);
-void		*ft_check_dead(void *input);
-void		*ft_send_life_signal(void *input);
+
+//ft_philo_thread_bonus.c
+void		*ft_check_life_time(void *input);
 
 #endif

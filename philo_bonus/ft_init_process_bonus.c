@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/17 17:55:46 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:20:31 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_init_processes(t_philo *philo)
 		pid = fork();
 		if (pid == 0)
 			ft_philosopher(philo, i);
+		if (pid < 0)
+			return (ft_error_create_philos());
 		philo->pid[i] = pid;
 		i++;
 	}

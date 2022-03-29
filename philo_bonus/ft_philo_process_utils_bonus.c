@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:59:42 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/17 18:07:49 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 18:37:31 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_prepare_philo(t_philo *philo, int i)
 		philo->myturn = i % 2;
 	else
 		philo->myturn = i % 3;
+	philo->status = THINKING;
 	ft_philo_status(philo, THINKING);
-	philo->thread_sema = ft_sema_init(philo->name, 1);
 }
 
 int	ft_dead_with_fork(t_philo *philo)
@@ -33,10 +33,13 @@ int	ft_dead_with_fork(t_philo *philo)
 	sem_wait(philo->thread_sema);
 	if (philo->dead == 1)
 	{
+		printf("died with fork!\n");
+		philo->status = DEAD;
 		sem_post(philo->forks_sema);
 		sem_post(philo->forks_sema);
 		sem_post(philo->thread_sema);
 		return (1);
 	}
+	sem_post(philo->thread_sema);
 	return (0);
 }

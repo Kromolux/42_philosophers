@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/18 12:25:54 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:12:26 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	ft_assign_values(t_props *props, t_times *times, t_philos *philos)
 	int	i;
 
 	i = 0;
+	philos[0].left_fork_lock = &props->alibi_left_lock;
+	philos[0].left_fork = &props->alibi_left_fork;
 	while (i < props->num_philos)
 	{
 		philos[i].name = ft_long_to_string((long) i + 1);
@@ -71,6 +73,7 @@ int	ft_create_threads(t_philos *philos)
 	i = 0;
 	while (i < philos->props.num_philos)
 	{
+		pthread_mutex_lock(&philos[i].thread_lock);
 		if (pthread_create(&philos[i].thread, NULL, &ft_philo_thread,
 				(void *) &philos[i]) != 0)
 			return (0);
@@ -87,7 +90,9 @@ void	ft_destroy_threads(t_philos *philos)
 	while (i < philos->props.num_philos)
 	{
 		pthread_mutex_lock(&philos[i].thread_lock);
+		pthread_mutex_lock(&philos->times->terminal_lock);
 		philos[i].stop = 1;
+		pthread_mutex_unlock(&philos->times->terminal_lock);
 		pthread_mutex_unlock(&philos[i].thread_lock);
 		pthread_join(philos[i].thread, NULL);
 		i++;
@@ -101,4 +106,26 @@ void	ft_destroy_threads(t_philos *philos)
 		i++;
 	}
 	free(philos);
+}
+
+void	ft_set_start_time(t_philos *philos)
+{
+	int	i;
+
+	i = 0;
+	gettimeofday(&philos->times->start, NULL);
+	while (i < philos->props.num_philos)
+	{
+		philos[i].start_time = philos->times->start;
+		philos[i].life_time = philos->times->start;
+		philos[i].actual_time = philos->times->start;
+		ft_philo_status(&philos[i], THINKING);
+		i++;
+	}
+	i = 0;
+	while (i < philos->props.num_philos)
+	{
+		pthread_mutex_unlock(&philos[i].thread_lock);
+		i++;
+	}
 }

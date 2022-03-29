@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:08:22 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/25 06:25:37 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:06:23 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	*ft_philo_thread(void *input)
 		philo->d_action_time = ft_get_time_delta(
 				philo->action_time, philo->actual_time);
 		pthread_mutex_lock(&philo->thread_lock);
+		ft_check_life_time(philo);
 		if (philo->stop == 1)
 			break ;
-		ft_check_life_time(philo);
 		pthread_mutex_unlock(&philo->thread_lock);
 		if (philo->status == THINKING)
 			ft_eat(philo);

@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/18 12:16:49 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:08:26 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_props {
 	long			time_eat;
 	long			time_sleep;
 	int				num_meals;
+	int				alibi_left_fork;
+	pthread_mutex_t	alibi_left_lock;
 }				t_props;
 
 typedef struct s_philos {
@@ -99,6 +101,7 @@ long		ft_string_to_long(const char *nptr);
 t_philos	*ft_init_philos(t_props *props, t_times *times);
 void		ft_destroy_threads(t_philos *philos);
 int			ft_create_threads(t_philos *philos);
+void		ft_set_start_time(t_philos *philos);
 
 //ft_philo_thread.c
 void		*ft_philo_thread(void *input);

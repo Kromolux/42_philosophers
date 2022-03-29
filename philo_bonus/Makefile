@@ -6,7 +6,7 @@
 #    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/25 06:27:30 by rkaufman         ###   ########.fr        #
+#    Updated: 2022/03/29 18:40:56 by rkaufman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,17 @@ SRC			:=	ft_philosophers_bonus.c \
 				ft_check_meals_bonus.c \
 				ft_utils_bonus.c \
 				ft_string_utils_bonus.c \
-				ft_semaphore.c
+				ft_semaphore_bonus.c \
+				ft_philo_thread_bonus.c
 
 OBJ			:=	$(SRC:%.c=%.o)
 
-CFLAGS		:=	-Wall -Wextra -Werror -lpthread -g -pthread -fsanitize=thread
+CFLAGS		:=	-Wall -Wextra -Werror -pthread -g -fsanitize=thread
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -lpthread -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
