@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 10:45:19 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 18:16:05 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:13:50 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static void	ft_choose_color(int status, char *output);
 
 int	ft_philo_status(t_philo *philo, int status)
 {
-	char	output[42];
-	char	*time;
-	size_t	len;
+	char			output[42];
+	char			*time;
+	struct timeval	actual_time;
+	size_t			len;
 
+	gettimeofday(&actual_time, NULL);
 	time = ft_long_to_string(ft_get_time_delta(philo->start_time,
-				philo->actual_time));
+				actual_time) / 1000);
 	len = ft_strlen(time);
 	ft_choose_color(status, output);
 	ft_copy(&output[5], time, 0);

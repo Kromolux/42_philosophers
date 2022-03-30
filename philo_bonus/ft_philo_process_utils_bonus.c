@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:59:42 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 18:37:31 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:18:29 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,36 @@ void	ft_prepare_philo(t_philo *philo, int i)
 	else
 		philo->myturn = i % 3;
 	philo->status = THINKING;
-	ft_philo_status(philo, THINKING);
 }
 
-int	ft_dead_with_fork(t_philo *philo)
+int	ft_is_dead_with_fork(t_philo *philo)
 {
-	sem_wait(philo->thread_sema);
-	if (philo->dead == 1)
+	if (!ft_is_alive(philo))
 	{
-		printf("died with fork!\n");
-		philo->status = DEAD;
 		sem_post(philo->forks_sema);
 		sem_post(philo->forks_sema);
-		sem_post(philo->thread_sema);
 		return (1);
 	}
-	sem_post(philo->thread_sema);
+	return (0);
+}
+
+int	ft_is_alive(t_philo *philo)
+{
+	gettimeofday(&philo->actual_time, NULL);
+	if (ft_get_time_delta(philo->life_time, philo->actual_time)
+		>= philo->time_die)
+	{
+		philo->status = DEAD;
+		return (0);
+	}
+	else
+		return (1);
+}
+
+int	ft_get_time_d(t_philo *philo)
+{
+	gettimeofday(&philo->actual_time, NULL);
+	philo->d_action_time = ft_get_time_delta(
+			philo->action_time, philo->actual_time);
 	return (0);
 }

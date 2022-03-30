@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:08:22 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 13:06:23 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:38:17 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,12 @@ static void	ft_sleep(t_philos *philo)
 	*philo->left_fork = 1;
 	philo->has_left_fork = 0;
 	pthread_mutex_unlock(philo->left_fork_lock);
-	pthread_mutex_lock(&philo->times->meal_lock);
-	philo->meals++;
-	pthread_mutex_unlock(&philo->times->meal_lock);
+	if (philo->props.num_meals > 0)
+	{
+		pthread_mutex_lock(&philo->times->meal_lock);
+		philo->meals++;
+		pthread_mutex_unlock(&philo->times->meal_lock);
+	}
 	gettimeofday(&philo->action_time, NULL);
 	philo->status = SLEEPING;
 	ft_philo_status(philo, SLEEPING);

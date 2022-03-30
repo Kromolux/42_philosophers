@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 09:23:04 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 18:20:31 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:06:17 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_destroy_processes(t_philo *philo)
 	i = 0;
 	while (i < philo->num_philos)
 	{
-		waitpid(philo->pid[i], NULL, 0);
+		waitpid(philo->pid[i], NULL, WUNTRACED);
 		i++;
 	}
 	free(philo->pid);

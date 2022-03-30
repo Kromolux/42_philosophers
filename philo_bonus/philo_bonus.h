@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 18:28:14 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:18:51 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ long		ft_get_time_delta(struct timeval start_time,
 size_t		ft_strlen(const char *s);
 size_t		ft_copy(char *dst, char *src, size_t size);
 char		*ft_realloc(char *s1, char *s2, int free_s1, int free_s2);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 
 //ft_string_utils_bonus.c
 char		*ft_long_to_string(long n);
@@ -107,7 +108,9 @@ void		ft_philosopher(t_philo *philo, int i);
 
 //ft_philo_process_utils_bonus.c
 void		ft_prepare_philo(t_philo *philo, int i);
-int			ft_dead_with_fork(t_philo *philo);
+int			ft_is_dead_with_fork(t_philo *philo);
+int			ft_is_alive(t_philo *philo);
+int			ft_get_time_d(t_philo *philo);
 
 //ft_status_bonus.c
 int			ft_philo_status(t_philo *philo, int status);

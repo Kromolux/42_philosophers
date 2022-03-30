@@ -6,7 +6,7 @@
 #    By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/05 09:04:12 by rkaufman          #+#    #+#              #
-#    Updated: 2022/03/29 18:40:56 by rkaufman         ###   ########.fr        #
+#    Updated: 2022/03/30 11:57:56 by rkaufman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC			:=	ft_philosophers_bonus.c \
 
 OBJ			:=	$(SRC:%.c=%.o)
 
-CFLAGS		:=	-Wall -Wextra -Werror -pthread -g -fsanitize=thread
+CFLAGS		:=	-Wall -Wextra -Werror -pthread #-g -fsanitize=thread
 
 all: $(NAME)
 

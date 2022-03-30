@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:12:15 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/15 11:13:38 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:16:32 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,26 @@ char	*ft_realloc(char *s1, char *s2, int free_s1, int free_s2)
 	if (free_s2)
 		free(s2);
 	return (output);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	char		*ptr_dest;
+	const char	*ptr_src;
+	size_t		i;
+
+	if (!dest && !src)
+		return (NULL);
+	if (n > 0)
+	{
+		i = 0;
+		ptr_dest = (char *) dest;
+		ptr_src = (const char *) src;
+		while (i < n)
+		{
+			ptr_dest[i] = ptr_src[i];
+			i++;
+		}
+	}
+	return (dest);
 }

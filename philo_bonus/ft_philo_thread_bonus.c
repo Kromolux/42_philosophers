@@ -6,7 +6,7 @@
 /*   By: rkaufman <rkaufman@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 08:20:25 by rkaufman          #+#    #+#             */
-/*   Updated: 2022/03/29 18:17:05 by rkaufman         ###   ########.fr       */
+/*   Updated: 2022/03/30 07:22:42 by rkaufman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*ft_check_life_time(void *input)
 			>= philo->time_die)
 		{
 			ft_philo_status(philo, DEAD);
-			ft_philo_status(philo, DEBUG);
 			sem_post(philo->dead_sema);
 			philo->dead = 1;
 			break ;
