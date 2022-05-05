@@ -1,2 +1,2 @@
-# Philosophers
+# 31_philosophers
 
